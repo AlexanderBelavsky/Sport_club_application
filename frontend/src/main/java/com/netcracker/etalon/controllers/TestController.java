@@ -73,6 +73,10 @@ public class TestController {
     public String goToregisterPage() {
         return "register";
     }
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public String returnToregisterPage() {
+        return "loginnew";
+    }
 
 
     @RequestMapping(value = "/users-view", method = RequestMethod.GET)
