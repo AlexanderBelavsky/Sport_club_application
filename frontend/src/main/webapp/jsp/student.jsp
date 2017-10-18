@@ -15,7 +15,7 @@
 <aside class="left-panel">
     <img src="http://www.linko.co.il/wp-content/uploads/2015/05/businessman1-1.jpg" width="150"
          height="150" class="image_centre">
-    <h5  align="center">a.belavsky97@gmail.com</h5>
+    <h5 сд align="center">a.belavsky97@gmail.com</h5>
     <h5  align="center">Статус: Студент</h5>
     <form class="form-horizontal m-t-0" action="/logout" method="post">
         <div class="form-group text-right">
