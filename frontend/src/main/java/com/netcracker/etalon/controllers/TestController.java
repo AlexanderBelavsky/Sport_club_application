@@ -27,6 +27,7 @@ import com.netcracker.etalon.beans.UserViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -45,6 +46,34 @@ public class TestController {
     public String goToLoginPage() {
         return "login";
     }
+
+    @RequestMapping(value = "/loginnew", method = RequestMethod.GET)
+    public String goTologinPage() {
+        return "loginnew";
+    }
+
+    @RequestMapping(value = "/loginnew", method = RequestMethod.POST)
+    public String goToStudentPage(@RequestParam("email") String email,
+                                  @RequestParam("password") String pass) {
+        String view = "loginnew";
+
+        switch (email){
+            case "stud@mail.com" : view="student";  break;
+            case "teacher@mail.com":view= "head_of_practice"; break;
+            case "admin@mail.com":view= "admin"; break;
+        }
+        return view;
+
+    }
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String goTologinnewPage() {
+        return "loginnew";
+    }
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String goToregisterPage() {
+        return "register";
+    }
+
 
     @RequestMapping(value = "/users-view", method = RequestMethod.GET)
     public ModelAndView getUsersAsModelWithView() {
