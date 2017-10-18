@@ -271,7 +271,7 @@
                                                                                         <div class="form-group">
                                                                                             <label class="col-md-2 control-label">Фамилия</label>
                                                                                             <div class="col-md-10">
-                                                                                                <input type="text" class="form-control" placeholder="Фамидия">
+                                                                                                <input type="text" class="form-control" placeholder="Фамилия">
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="form-group">
