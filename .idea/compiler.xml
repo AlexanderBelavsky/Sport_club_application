@@ -12,6 +12,7 @@
     <bytecodeTargetLevel>
       <module name="backend" target="1.8" />
       <module name="etalon2" target="1.8" />
+      <module name="Etalon3" target="1.8" />
       <module name="frontend" target="1.8" />
     </bytecodeTargetLevel>
   </component>
