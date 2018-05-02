@@ -6,12 +6,89 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page session="true" %>
 <html>
 <head>
     <title>Title</title>
     <jsp:include page="/jsp/blocks/header1.jsp"/>
+
+    <script>
+
+
+        function adminPageInit() {
+            $('#tclient').DataTable({
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+
+            });
+            $('#tcoach').DataTable({
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            });
+            $('#tinformation').DataTable({
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            });
+            $('#tgym').DataTable({
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            });
+            $('#subscription_edit').ajaxForm({
+                dataType: 'json',
+                success: function (data) {
+                    if (data) {
+                        $('#faculty').text($("#faculties option[value='" + data.idFaculty + "']").text());
+                        $('#success').css('display', 'block');
+                    } else {
+                        $('#error').css('display', 'block');
+                    }
+                }
+            });
+            $('#gym_edit').ajaxForm({
+                dataType: 'json',
+                success: function (data) {
+                    if (data) {
+                        $('#faculty').text($("#faculties option[value='" + data.idFaculty + "']").text());
+                        $('#success').css('display', 'block');
+                    } else {
+                        $('#error').css('display', 'block');
+                    }
+                }
+            });
+            $('#coach_edit').ajaxForm({
+                dataType: 'json',
+                success: function (data) {
+                    if (data) {
+                        $('#faculty').text($("#faculties option[value='" + data.idFaculty + "']").text());
+                        $('#success').css('display', 'block');
+                    } else {
+                        $('#error').css('display', 'block');
+                    }
+                }
+            });
+
+        }
+
+    </script>
 </head>
-<body>
+<body onload="adminPageInit()">
 <div class="col-md-12">
     <div class="row">
         <div class="col-md-12">
@@ -22,11 +99,16 @@
                 <div class="panel-body">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#home" data-toggle="tab" aria-expanded="false">Таблицы</a>
+                        <li class="active"><a href="#home" data-toggle="tab" aria-expanded="false">Клиенты и
+                            абонементы</a>
                         </li>
-                        <li class=""><a href="#profile" data-toggle="tab" aria-expanded="false">Создать</a>
+                        <li class=""><a href="#profile" data-toggle="tab" aria-expanded="false">Тренеры и залы</a>
+                        <li class="">
+                            <a href="/logout">
+                                <button class="btn btn-primary w-md">Выйти</button>
+                            </a>
                         </li>
-                        <li class=""><a href="#messages" data-toggle="tab" aria-expanded="true">Добавить заявку</a>
+
                     </ul>
 
                     <!-- Tab panes -->
@@ -36,132 +118,91 @@
                                 <div class="col-md-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            <h3 class="panel-title" align="center">Таблица Всех студентов</h3>
+                                            <h3 class="panel-title" align="center">Таблица всех клиентов</h3>
                                         </div>
                                         <div class="panel-body">
                                             <div class="row">
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <table id="All_studenttable1"
+                                                    <table id="tclient"
                                                            class="table table-striped table-bordered">
                                                         <thead>
                                                         <tr>
                                                             <th>Имя</th>
                                                             <th>Фамилия</th>
-                                                            <th>Компания</th>
-                                                            <th>Отдел</th>
-                                                            <th>Университет</th>
-                                                            <th>Факультет</th>
-                                                            <th>Средний балл</th>
-                                                            <th>Статус</th>
+                                                            <th>Тренер</th>
+                                                            <th>Номер телефона</th>
+                                                            <th>Эл.почта</th>
+                                                            <th>Удалить</th>
                                                         </tr>
                                                         </thead>
 
                                                         <tbody>
-                                                        <tr>
-                                                            <td>Костя</td>
-                                                            <td>Новичек</td>
-                                                            <td>Бипал</td>
-                                                            <td>Дев-апс</td>
-                                                            <td>БГУИР</td>
-                                                            <td>ФКП</td>
-                                                            <td>-3</td>
-                                                            <td>На практике</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Жекич</td>
-                                                            <td>Мекич</td>
-                                                            <td>свайопредприятие</td>
-                                                            <td>Дев-апс2.0</td>
-                                                            <td>БГУИР</td>
-                                                            <td>ФКП</td>
-                                                            <td>10.5</td>
-                                                            <td>На практике</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Путин</td>
-                                                            <td>Йло</td>
-                                                            <td>Раша</td>
-                                                            <td>Отдел ввода пвойск</td>
-                                                            <td>БГУ</td>
-                                                            <td>КСиС</td>
-                                                            <td>14/88</td>
-                                                            <td>Ожидание</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Костя</td>
-                                                            <td>Новичек</td>
-                                                            <td>Бипал</td>
-                                                            <td>Дев-апс</td>
-                                                            <td>БГУИР</td>
-                                                            <td>ФКП</td>
-                                                            <td>-3</td>
-                                                            <td>На практике</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Костя</td>
-                                                            <td>Новичек</td>
-                                                            <td>Бипал</td>
-                                                            <td>Дев-апс</td>
-                                                            <td>БГУИР</td>
-                                                            <td>ФКП</td>
-                                                            <td>-3</td>
-                                                            <td>Ожидание</td>
-                                                        </tr>
+                                                        <c:forEach items="${clients}" var="cl">
+                                                            <tr>
+                                                                <td>${cl.getFirst_name()}</td>
+                                                                <td>${cl.getLast_name()}</td>
+                                                                <td>${coach.stream().filter(coach -> coach.getIdCoach()==cl.getIdCoach()).findFirst().get().getFirst_name()} ${coach.stream().filter(coach -> coach.getIdCoach()==cl.getIdCoach()).findFirst().get().getLast_name()}</td>
+                                                                <td>${cl.getPhone_number()}</td>
+                                                                <td>${cl.getEmail()}</td>
+                                                                <td>
+                                                                    <a href="#myModal${cl.getIdClient()+ 2000775}"
+                                                                       class="btn btn-block btn-danger"
+                                                                       data-toggle="modal">Удалить</a>
+                                                                    <!-- HTML-код модального окна-->
+                                                                    <div id="myModal${cl.getIdClient() + 2000775}" class="modal fade">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <!-- Заголовок модального окна -->
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close"
+                                                                                            data-dismiss="modal"
+                                                                                            aria-hidden="true">×
+                                                                                    </button>
+                                                                                    <h4 class="modal-title">Вы точно
+                                                                                        хотите удалить
+                                                                                        клиента ${cl.getFirst_name()} ${cl.getLast_name()}</h4>
+                                                                                </div>
+                                                                                <!-- Основное содержимое модального окна -->
+                                                                                <div class="modal-body">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-12">
+                                                                                            <div class="panel panel-default">
+                                                                                                <div class="panel-heading">
+                                                                                                    <h3 class="panel-title"
+                                                                                                        align="center">
+                                                                                                        Удалить</h3>
+                                                                                                </div>
+                                                                                                <div class="panel-body">
+                                                                                                    <form class="form-horizontal"
+                                                                                                          role="form">
+                                                                                                        <a href=" <c:url value='/admin/deleteClient/${cl.getIdClient()}'/> ">
+                                                                                                            <button
+                                                                                                                    type="button"
+                                                                                                                    class="btn btn-block btn-danger">
+                                                                                                                Удалить
+                                                                                                            </button>
+                                                                                                        </a>
+                                                                                                    </form>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                </td>
+                                                            </tr>
+                                                        </c:forEach>
 
                                                         </tbody>
                                                     </table>
 
                                                 </div>
-                                                <div class="panel-body">
-                                                    <button type="submit" class="btn btn-purple">
-                                                        Удалить
-                                                    </button>
-                                                    <a href="#myModal" class="btn btn-primary" data-toggle="modal">Зачислить</a>
-                                                    <!-- HTML-код модального окна-->
-                                                    <div id="myModal1" class="modal fade">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <!-- Заголовок модального окна -->
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                                    <h4 class="modal-title">Зачисление на практику</h4>
-                                                                </div>
-                                                                <!-- Основное содержимое модального окна -->
-                                                                <div class="modal-body">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-12">
-                                                                            <div class="panel panel-default">
-                                                                                <div class="panel-heading">
-                                                                                    <h3 class="panel-title" align="center">Назначение на практику</h3>
-                                                                                </div>
-                                                                                <div class="panel-body">
-                                                                                    <form class="form-horizontal" role="form">
-                                                                                        <div class="form-group">
-                                                                                            <label class="col-md-2 control-label">Название практики</label>
-                                                                                            <div class="col-md-10">
-                                                                                                <input type="text" class="form-control" placeholder="Названиме">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                            <label class="col-md-2 control-label">Название компании</label>
-                                                                                            <div class="col-md-10">
-                                                                                                <input type="text" class="form-control" placeholder="Компания">
-                                                                                            </div>
-                                                                                        </div>
 
-                                                                                        <button type="submit" class="btn btn-purple">
-                                                                                            Применить
-                                                                                        </button>
-                                                                                    </form>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -171,120 +212,266 @@
                                 <div class="col-md-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            <h3 class="panel-title" align="center">Таблица всех заявок</h3>
+                                            <h3 class="panel-title" align="center">Таблица всех абонементов</h3>
                                         </div>
                                         <div class="panel-body">
                                             <div class="row">
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <table id="All_requesttable1"
+                                                    <table id="tinformation"
                                                            class="table table-striped table-bordered">
                                                         <thead>
                                                         <tr>
-                                                            <th>Название практики</th>
-                                                            <th>Компания</th>
-                                                            <th>Отдел</th>
-                                                            <th>Университет</th>
-                                                            <th>Факультет</th>
-                                                            <th>Средний балл</th>
-                                                            <th>Количество мест</th>
-                                                            <th>Набрано</th>
+                                                            <th>Название</th>
+                                                            <th>Стоимость</th>
+                                                            <th>Зал</th>
+                                                            <th>Дни проведения</th>
+                                                            <th>Месяц</th>
+                                                            <th>Записаться</th>
                                                         </tr>
                                                         </thead>
 
                                                         <tbody>
-                                                        <tr>
-                                                            <td>Java dev1</td>
-                                                            <td>Бипал</td>
-                                                            <td>Дев-апс</td>
-                                                            <td>БГУИР</td>
-                                                            <td>ФКП</td>
-                                                            <td>-3</td>
-                                                            <td>10</td>
-                                                            <td>8</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Java dev2</td>
-                                                            <td>свайопредприятие</td>
-                                                            <td>Дев-апс2.0</td>
-                                                            <td>БГУИР</td>
-                                                            <td>ФКП</td>
-                                                            <td>10.5</td>
-                                                            <td>5</td>
-                                                            <td>5</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Java dev3</td>
-                                                            <td>Раша</td>
-                                                            <td>Отдел ввода пвойск</td>
-                                                            <td>БГУ</td>
-                                                            <td>КСиС</td>
-                                                            <td>14/88</td>
-                                                            <td>15</td>
-                                                            <td>5</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Java dev4</td>
-                                                            <td>Бипал</td>
-                                                            <td>Дев-апс</td>
-                                                            <td>БГУИР</td>
-                                                            <td>ФКП</td>
-                                                            <td>-3</td>
-                                                            <td>20</td>
-                                                            <td>15</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Java dev5</td>
-                                                            <td>Бипал</td>
-                                                            <td>Дев-апс</td>
-                                                            <td>БГУИР</td>
-                                                            <td>ФКП</td>
-                                                            <td>-3</td>
-                                                            <td>25</td>
-                                                            <td>25</td>
-                                                        </tr>
+                                                        <c:forEach items="${subscription}" var="sub">
+                                                            <tr>
+                                                                <td>${sub.getDescription()}</td>
+                                                                <td>${sub.getValue()}</td>
+                                                                <td>${gyms.stream().filter(gym -> gym.getIdGym()==sub.getIdGym()).findFirst().get().getGym_name()}</td>
+                                                                <td>${sub.getDay1()} - ${sub.getDay2()}</td>
+                                                                <td>${sub.getMonth()}</td>
+                                                                <td>
+                                                                    <a href="#myModal${sub.getidSubscription()+ 17775}"
+                                                                       class="btn btn-block btn-danger"
+                                                                       data-toggle="modal">Удалить</a>
+                                                                    <!-- HTML-код модального окна-->
+                                                                    <div id="myModal${sub.getidSubscription() + 17775}" class="modal fade">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <!-- Заголовок модального окна -->
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close"
+                                                                                            data-dismiss="modal"
+                                                                                            aria-hidden="true">×
+                                                                                    </button>
+                                                                                    <h4 class="modal-title">Вы точно
+                                                                                        хотите удалить
+                                                                                        абонемент ${sub.getDescription()}</h4>
+                                                                                </div>
+                                                                                <!-- Основное содержимое модального окна -->
+                                                                                <div class="modal-body">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-12">
+                                                                                            <div class="panel panel-default">
+                                                                                                <div class="panel-heading">
+                                                                                                    <h3 class="panel-title"
+                                                                                                        align="center">
+                                                                                                        Удалить</h3>
+                                                                                                </div>
+                                                                                                <div class="panel-body">
+                                                                                                    <form class="form-horizontal"
+                                                                                                          role="form">
+                                                                                                        <a href=" <c:url value='/admin/deleteSubscription/${sub.getidSubscription()}'/> ">
+                                                                                                            <button
+                                                                                                                    type="button"
+                                                                                                                    class="btn btn-block btn-danger">
+                                                                                                                Удалить
+                                                                                                            </button>
+                                                                                                        </a>
+                                                                                                    </form>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
 
+                                                                </td>
+                                                            </tr>
+                                                        </c:forEach>
                                                         </tbody>
                                                     </table>
 
-                                                </div>
-                                                <div class="panel-body">
-                                                    <a href="#myModal" class="btn btn-primary" data-toggle="modal">Зачислить</a>
-                                                    <!-- HTML-код модального окна-->
-                                                    <div id="myModal" class="modal fade">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <!-- Заголовок модального окна -->
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                                    <h4 class="modal-title">Зачисление на практику</h4>
-                                                                </div>
-                                                                <!-- Основное содержимое модального окна -->
-                                                                <div class="modal-body">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-12">
-                                                                            <div class="panel panel-default">
-                                                                                <div class="panel-heading">
-                                                                                    <h3 class="panel-title" align="center">Данные студента для зачисления</h3>
-                                                                                </div>
-                                                                                <div class="panel-body">
-                                                                                    <form class="form-horizontal" role="form">
-                                                                                        <div class="form-group">
-                                                                                            <label class="col-md-2 control-label">Фамилия</label>
-                                                                                            <div class="col-md-10">
-                                                                                                <input type="text" class="form-control" placeholder="Фамилия">
+                                                    <div class="panel-body">
+                                                        <a href="#myModal" class="btn btn-primary"
+                                                           data-toggle="modal">Создать</a>
+                                                        <!-- HTML-код модального окна-->
+                                                        <div id="myModal" class="modal fade">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <!-- Заголовок модального окна -->
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close"
+                                                                                data-dismiss="modal"
+                                                                                aria-hidden="true">×
+                                                                        </button>
+                                                                        <h4 class="modal-title">Создать абонементу</h4>
+                                                                    </div>
+                                                                    <!-- Основное содержимое модального окна -->
+                                                                    <div class="modal-body">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12">
+                                                                                <div class="panel panel-default">
+                                                                                    <div class="panel-heading">
+                                                                                        <h3 class="panel-title"
+                                                                                            align="center">
+                                                                                            Данные для создания
+                                                                                            абонемента</h3>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <form class="form-horizontal"
+                                                                                              role="form"
+                                                                                              action="admin/addSubscription"
+                                                                                              id="subscription_edit"
+                                                                                              method="post"
+                                                                                              accept-charset="windows1251">
+                                                                                            <div class="form-group">
+                                                                                                <label class="col-md-2 control-label">Название</label>
+                                                                                                <div class="col-md-10">
+                                                                                                    <input type="text"
+                                                                                                           class="form-control"
+                                                                                                           placeholder="Название"
+                                                                                                           name="description">
+                                                                                                </div>
                                                                                             </div>
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                            <label class="col-md-2 control-label">Имя</label>
-                                                                                            <div class="col-md-10">
-                                                                                                <input type="text" class="form-control" placeholder="Имя">
+                                                                                            <div class="form-group">
+                                                                                                <label class="col-md-2 control-label">Стоимость</label>
+                                                                                                <div class="col-md-10">
+                                                                                                    <input type="text"
+                                                                                                           class="form-control"
+                                                                                                           placeholder="Стоимость"
+                                                                                                           name="value">
+                                                                                                </div>
                                                                                             </div>
-                                                                                        </div>
+                                                                                            <div class="form-group">
+                                                                                                <label class="col-sm-2 control-label">Зал</label>
+                                                                                                <div class="col-sm-10">
+                                                                                                    <select id="fac"
+                                                                                                            class="form-control"
+                                                                                                            name="idGym">
+                                                                                                        <c:forEach
+                                                                                                                items="${gyms}"
+                                                                                                                var="gym">
+                                                                                                            <option value="${gym.getIdGym()}">${gym.getGym_name()}</option>
+                                                                                                        </c:forEach>
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="form-group">
+                                                                                                <label class="col-sm-2 control-label">День
+                                                                                                    недели</label>
+                                                                                                <div class="col-sm-10">
+                                                                                                    <select class="form-control"
+                                                                                                            name="Day1">
+                                                                                                        <option>
+                                                                                                            Понедельник
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Вторник
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Среда
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Четверг
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Пятница
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Суббота
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Воскресенье
+                                                                                                        </option>
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="form-group">
+                                                                                                <label class="col-sm-2 control-label">День
+                                                                                                    недели</label>
+                                                                                                <div class="col-sm-10">
+                                                                                                    <select class="form-control"
+                                                                                                            name="Day2">
+                                                                                                        <option>
+                                                                                                            Понедельник
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Вторник
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Среда
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Четверг
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Пятница
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Суббота
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Воскресенье
+                                                                                                        </option>
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="form-group">
+                                                                                                <label class="col-sm-2 control-label">
+                                                                                                    Месяц</label>
+                                                                                                <div class="col-sm-10">
+                                                                                                    <select class="form-control"
+                                                                                                            name="Month">
+                                                                                                        <option>
+                                                                                                            Январь
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Февраль
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Март
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Апрель
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Май
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Июнь
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Июль
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Август
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Сентябрь
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Октябрь
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Ноябрь
+                                                                                                        </option>
+                                                                                                        <option>
+                                                                                                            Декабрь
+                                                                                                        </option>
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <input type="hidden"
+                                                                                                   name="${_csrf.parameterName}"
+                                                                                                   value="${_csrf.token}"/>
 
-                                                                                        <button type="submit" class="btn btn-purple">
-                                                                                            Применить
-                                                                                        </button>
-                                                                                    </form>
+                                                                                            <button type="submit"
+                                                                                                    class="btn btn-purple">
+                                                                                                Применить
+                                                                                            </button>
+                                                                                        </form>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -293,268 +480,360 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="tab-pane fade" id="profile">
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-md-6">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            <h3 class="panel-title" align="center">Личные данные</h3>
+                                            <h3 class="panel-title" align="center">Таблица всех тренеров</h3>
                                         </div>
                                         <div class="panel-body">
-                                            <form class="form-horizontal" role="form">
-                                                <div class="form-group">
-                                                    <label class="col-md-2 control-label">Имя</label>
-                                                    <div class="col-md-10">
-                                                        <input type="text" class="form-control" placeholder="Имя">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <table id="tcoach"
+                                                           class="table table-striped table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Имя</th>
+                                                            <th>Фамилия</th>
+                                                            <th>Зарплата</th>
+                                                            <th>Уволить</th>
+                                                        </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                        <c:forEach items="${coach}" var="coa">
+                                                            <tr>
+                                                                <td>${coa.getFirst_name()}</td>
+                                                                <td>${coa.getLast_name()}</td>
+                                                                <td>${coa.getSalary()}</td>
+                                                                <td>
+                                                                    <a href="#myModal${coa.getIdCoach()+ 188976}"
+                                                                       class="btn btn-block btn-danger"
+                                                                       data-toggle="modal">Уволить</a>
+                                                                    <!-- HTML-код модального окна-->
+                                                                    <div id="myModal${coa.getIdCoach() + 188976}" class="modal fade">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <!-- Заголовок модального окна -->
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close"
+                                                                                            data-dismiss="modal"
+                                                                                            aria-hidden="true">×
+                                                                                    </button>
+                                                                                    <h4 class="modal-title">Вы точно
+                                                                                        хотите уволить
+                                                                                        тренера ${coa.getFirst_name()} ${coa.getLast_name()} </h4>
+                                                                                </div>
+                                                                                <!-- Основное содержимое модального окна -->
+                                                                                <div class="modal-body">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-12">
+                                                                                            <div class="panel panel-default">
+                                                                                                <div class="panel-heading">
+                                                                                                    <h3 class="panel-title"
+                                                                                                        align="center">
+                                                                                                        Уволить</h3>
+                                                                                                </div>
+                                                                                                <div class="panel-body">
+                                                                                                    <form class="form-horizontal"
+                                                                                                          role="form">
+                                                                                                        <a href=" <c:url value='/admin/deleteCoach/${coa.getIdCoach()}'/> ">
+                                                                                                            <button
+                                                                                                                    type="button"
+                                                                                                                    class="btn btn-block btn-danger">
+                                                                                                                Уволить
+                                                                                                            </button>
+                                                                                                        </a>
+                                                                                                    </form>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                </td>
+                                                            </tr>
+                                                        </c:forEach>
+
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="panel-body">
+                                                        <a href="#myModal1" class="btn btn-primary"
+                                                           data-toggle="modal">Добавить</a>
+                                                        <!-- HTML-код модального окна-->
+                                                        <div id="myModal1" class="modal fade">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <!-- Заголовок модального окна -->
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close"
+                                                                                data-dismiss="modal"
+                                                                                aria-hidden="true">×
+                                                                        </button>
+                                                                        <h4 class="modal-title">Добавить тренера</h4>
+                                                                    </div>
+                                                                    <!-- Основное содержимое модального окна -->
+                                                                    <div class="modal-body">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12">
+                                                                                <div class="panel panel-default">
+                                                                                    <div class="panel-heading">
+                                                                                        <h3 class="panel-title"
+                                                                                            align="center">
+                                                                                            Данные для добавления
+                                                                                            тренера</h3>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <form class="form-horizontal"
+                                                                                              role="form"
+                                                                                              action="admin/addCoach"
+                                                                                              id="coach_edit"
+                                                                                              method="post"
+                                                                                              accept-charset="windows1251">
+                                                                                            <div class="form-group">
+                                                                                                <label class="col-md-2 control-label">Логин</label>
+                                                                                                <div class="col-md-10">
+                                                                                                    <input type="text"
+                                                                                                           class="form-control"
+                                                                                                           placeholder="Логин"
+                                                                                                           name="username">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="form-group">
+                                                                                                <label class="col-md-2 control-label">Пароль</label>
+                                                                                                <div class="col-md-10">
+                                                                                                    <input type="password"
+                                                                                                           class="form-control"
+                                                                                                           placeholder="Пароль"
+                                                                                                           name="password">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="form-group">
+                                                                                                <label class="col-md-2 control-label">Имя</label>
+                                                                                                <div class="col-md-10">
+                                                                                                    <input type="text"
+                                                                                                           class="form-control"
+                                                                                                           placeholder="Имя"
+                                                                                                           name="first_name">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="form-group">
+                                                                                                <label class="col-md-2 control-label">Фамилия</label>
+                                                                                                <div class="col-md-10">
+                                                                                                    <input type="text"
+                                                                                                           class="form-control"
+                                                                                                           placeholder="Фамилия"
+                                                                                                           name="last_name">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="form-group">
+                                                                                                <label class="col-md-2 control-label">Оклад</label>
+                                                                                                <div class="col-md-10">
+                                                                                                    <input type="text"
+                                                                                                           class="form-control"
+                                                                                                           placeholder="Оклад"
+                                                                                                           name="salary">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <input type="hidden"
+                                                                                                   name="${_csrf.parameterName}"
+                                                                                                   value="${_csrf.token}"/>
+
+                                                                                            <button type="submit"
+                                                                                                    class="btn btn-purple">
+                                                                                                Применить
+                                                                                            </button>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-md-2 control-label">Фамилия</label>
-                                                    <div class="col-md-10">
-                                                        <input type="text" class="form-control" placeholder="Фамилия">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Университет</label>
-                                                    <div class="col-sm-10">
-                                                        <select class="form-control">
-                                                            <option>БГУИР</option>
-                                                            <option>БГУ</option>
-                                                            <option>БНТУ</option>
-                                                            <option>БГАТУ</option>
-                                                            <option>БТУ</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Факультет</label>
-                                                    <div class="col-sm-10">
-                                                        <select class="form-control">
-                                                            <option>ФКП</option>
-                                                            <option>ФКСиС</option>
-                                                            <option>ФИТУ</option>
-                                                            <option>ФРЭ</option>
-                                                            <option>ИЭФ</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-md-2 control-label">Номер группы</label>
-                                                    <div class="col-md-10">
-                                                        <input type="text" class="form-control" placeholder="Группа">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Форма обучения</label>
-                                                    <div class="col-sm-10">
-                                                        <select class="form-control">
-                                                            <option>Платная</option>
-                                                            <option>Бесплатная</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-md-2 control-label">Средний балл</label>
-                                                    <div class="col-md-10">
-                                                        <input type="text" class="form-control" placeholder="Балл">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <h4 align="center">Дата рождения</h4>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" placeholder="mm/dd/yyyy"
-                                                               id="datepicker">
-                                                        <span class="input-group-addon"><i
-                                                                class="glyphicon glyphicon-calendar"></i></span>
-                                                    </div>
-                                                </div>
-                                                <button type="submit" class="btn btn-purple">
-                                                    Применить
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title" align="center">Создать университет</h3>
-                                        </div>
-                                        <div class="panel-body">
-                                            <form class="form-horizontal" role="form">
-                                                <div class="form-group">
-                                                    <label class="col-md-2 control-label">Название университета</label>
-                                                    <div class="col-md-10">
-                                                        <input type="text" class="form-control" placeholder="Название">
-                                                    </div>
+
+
                                                 </div>
 
-                                                <button type="submit" class="btn btn-purple">
-                                                    Применить
-                                                </button>
-                                            </form>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
+
+
+                                <div class="col-md-6">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            <h3 class="panel-title" align="center">Создать факультет</h3>
+                                            <h3 class="panel-title" align="center">Таблица всех залов</h3>
                                         </div>
                                         <div class="panel-body">
-                                            <form class="form-horizontal" role="form">
-                                                <div class="form-group">
-                                                    <label class="col-md-2 control-label">Название факультета</label>
-                                                    <div class="col-md-10">
-                                                        <input type="text" class="form-control" placeholder="Название">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <table id="tgym"
+                                                           class="table table-striped table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Название</th>
+                                                            <th>Удалить</th>
+                                                        </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                        <c:forEach items="${gyms}" var="gym1">
+                                                            <tr>
+                                                                <td>${gym1.getGym_name()}</td>
+                                                                <td>
+                                                                    <a href="#myModal${gym1.getIdGym()+ 1575}"
+                                                                       class="btn btn-block btn-danger"
+                                                                       data-toggle="modal">Удалить</a>
+                                                                    <!-- HTML-код модального окна-->
+                                                                    <div id="myModal${gym1.getIdGym() + 1575}" class="modal fade">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <!-- Заголовок модального окна -->
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close"
+                                                                                            data-dismiss="modal"
+                                                                                            aria-hidden="true">×
+                                                                                    </button>
+                                                                                    <h4 class="modal-title">Вы точно
+                                                                                        хотите удалить
+                                                                                        зал ${gym1.getGym_name()}  </h4>
+                                                                                </div>
+                                                                                <!-- Основное содержимое модального окна -->
+                                                                                <div class="modal-body">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-12">
+                                                                                            <div class="panel panel-default">
+                                                                                                <div class="panel-heading">
+                                                                                                    <h3 class="panel-title"
+                                                                                                        align="center">
+                                                                                                        Удалить</h3>
+                                                                                                </div>
+                                                                                                <div class="panel-body">
+                                                                                                    <form class="form-horizontal"
+                                                                                                          role="form">
+                                                                                                        <a href=" <c:url value='/admin/deleteGym/${gym1.getIdGym()}'/> ">
+                                                                                                            <button
+                                                                                                                    type="button"
+                                                                                                                    class="btn btn-block btn-danger">
+                                                                                                                Удалить
+                                                                                                            </button>
+                                                                                                        </a>
+                                                                                                    </form>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+
+                                                                </td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="panel-body">
+                                                        <a href="#myModal2" class="btn btn-primary"
+                                                           data-toggle="modal">Добавить</a>
+                                                        <!-- HTML-код модального окна-->
+                                                        <div id="myModal2" class="modal fade">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <!-- Заголовок модального окна -->
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close"
+                                                                                data-dismiss="modal"
+                                                                                aria-hidden="true">×
+                                                                        </button>
+                                                                        <h4 class="modal-title">Добавить зал</h4>
+                                                                    </div>
+                                                                    <!-- Основное содержимое модального окна -->
+                                                                    <div class="modal-body">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12">
+                                                                                <div class="panel panel-default">
+                                                                                    <div class="panel-heading">
+                                                                                        <h3 class="panel-title"
+                                                                                            align="center">
+                                                                                            Данные для добавления
+                                                                                            зала</h3>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <form class="form-horizontal"
+                                                                                              role="form"
+                                                                                              action="admin/addGym"
+                                                                                              id="gym_edit"
+                                                                                              method="post"
+                                                                                              accept-charset="windows1251">
+                                                                                            <div class="form-group">
+                                                                                                <label class="col-md-2 control-label">Название</label>
+                                                                                                <div class="col-md-10">
+                                                                                                    <input type="text"
+                                                                                                           class="form-control"
+                                                                                                           placeholder="Название"
+                                                                                                           name="gym_name">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <input type="hidden"
+                                                                                                   name="${_csrf.parameterName}"
+                                                                                                   value="${_csrf.token}"/>
+
+                                                                                            <button type="submit"
+                                                                                                    class="btn btn-purple">
+                                                                                                Применить
+                                                                                            </button>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
+
+
                                                 </div>
-                                                <button type="submit" class="btn btn-purple">
-                                                    Применить
-                                                </button>
-                                            </form>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                        <div class="tab-pane fade " id="messages">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title" align="center">Добавить заяку</h3>
-                                        </div>
-                                        <div class="panel-body">
-                                            <form class="form-horizontal" role="form">
-                                                <h4 align="center">Личные данные руководителя практики</h4>
-                                                <div class="form-group">
-                                                    <label class="col-md-2 control-label">Имя</label>
-                                                    <div class="col-md-10">
-                                                        <input type="text" class="form-control" placeholder="Имя">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-md-2 control-label">Фамилия</label>
-                                                    <div class="col-md-10">
-                                                        <input type="text" class="form-control" placeholder="Фамилия">
-                                                    </div>
-                                                </div>
-                                                <h4 align="center">Данные о практике</h4>
-                                                <div class="form-group">
-                                                    <label class="col-md-2 control-label">Название практики</label>
-                                                    <div class="col-md-10">
-                                                        <input type="text" class="form-control" placeholder="Название">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-md-2 control-label">Название предприятие</label>
-                                                    <div class="col-md-10">
-                                                        <input type="text" class="form-control"
-                                                               placeholder="Предприятие">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-md-2 control-label">Название отдела</label>
-                                                    <div class="col-md-10">
-                                                        <input type="text" class="form-control" placeholder="Отдел">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Университет</label>
-                                                    <div class="col-sm-10">
-                                                        <select class="form-control">
-                                                            <option>БГУИР</option>
-                                                            <option>БГУ</option>
-                                                            <option>БНТУ</option>
-                                                            <option>БГАТУ</option>
-                                                            <option>БТУ</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Факультет</label>
-                                                    <div class="col-sm-10">
-                                                        <select class="form-control">
-                                                            <option>ФКП</option>
-                                                            <option>ФКСиС</option>
-                                                            <option>ФИТУ</option>
-                                                            <option>ФРЭ</option>
-                                                            <option>ИЭФ</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-md-2 control-label">Количество студентов</label>
-                                                    <div class="col-md-10">
-                                                        <input type="text" class="form-control"
-                                                               placeholder="Количество">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Минимальный средний
-                                                        балл</label>
-                                                    <div class="col-sm-10">
-                                                        <select class="form-control">
-                                                            <option>4</option>
-                                                            <option>5</option>
-                                                            <option>6</option>
-                                                            <option>7</option>
-                                                            <option>8</option>
-                                                            <option>9</option>
-                                                            <option>10</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <h4 align="center">Начало практики</h4>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" placeholder="mm/dd/yyyy"
-                                                               id="datepicker">
-                                                        <span class="input-group-addon"><i
-                                                                class="glyphicon glyphicon-calendar"></i></span>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <h4 align="center">Конец практики</h4>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" placeholder="mm/dd/yyyy"
-                                                               id="datepicker-multiple">
-                                                        <span class="input-group-addon"><i
-                                                                class="glyphicon glyphicon-calendar"></i></span>
-                                                    </div>
-                                                </div>
-                                                <button type="submit" class="btn btn-purple">
-                                                    Применить
-                                                </button>
 
-                                            </form>
-                                        </div>
-                                        <!-- panel-body -->
-                                    </div>
-                                    <!-- panel -->
-                                </div>
-                                <!-- col -->
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+
+</div>
 
 </div>
 <script type="text/javascript">
